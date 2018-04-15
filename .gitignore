@@ -1,6 +1,6 @@
 # data
-data/*
-json_dict/*
+data/*/
+json_dict/*.json
 
 # notebook playground
 preprocessing-loading.ipynb
