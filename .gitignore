@@ -1,5 +1,6 @@
 # data
-data/*/
+data/DASS
+data/LibriSpeech
 json_dict/*.json
 
 # notebook playground
