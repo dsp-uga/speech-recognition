@@ -2,6 +2,7 @@
 data/DASS/
 data/LibriSpeech/
 json_dict/*.json
+src/results
 
 # notebook playground
 preprocessing-loading.ipynb
