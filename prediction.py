@@ -18,10 +18,10 @@ from utils import int_sequence_to_text
 def predict_test(input_to_softmax, model_path):
     data_gen = AudioGenerator()
     data_gen.load_train_data()
-    data_gen.load_validation_data()
+    data_gen.load_test_data()
 
-    transcr = data_gen.valid_texts
-    audio_path = data_gen.valid_audio_paths
+    transcr = data_gen.test_texts
+    audio_path = data_gen.test_audio_paths
     input_to_softmax.load_weights(model_path)
     predictions = []
     for i in range(10):#len(audio_path)):
