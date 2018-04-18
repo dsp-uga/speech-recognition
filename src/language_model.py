@@ -69,10 +69,9 @@ def ctc_beam_search_decoder_batch(probs_split,
         probs_split, vocabulary, beam_size, num_processes, cutoff_prob,
         cutoff_top_n, ext_scoring_func)
     batch_beam_results = [
-#         [(res[0], res[1].decode("utf-8")) for res in beam_results]
         [(res[0], res[1]) for res in beam_results]
         for beam_results in batch_beam_results
-    ]
+        ]
     return batch_beam_results
 
 
@@ -110,7 +109,6 @@ def ctc_beam_search_decoder(probs_seq,
     beam_results = swig_decoders.ctc_beam_search_decoder(
         probs_seq.tolist(), vocabulary, beam_size, cutoff_prob, cutoff_top_n,
         ext_scoring_func)
-#     beam_results = [(res[0], res[1].decode('utf-8')) for res in beam_results]
     beam_results = [(res[0], res[1]) for res in beam_results]
     return beam_results
 
@@ -132,18 +130,9 @@ def init_ext_scorer(language_model_path,
     :type vocab_list: list
     """
     if language_model_path != '':
-#         self.logger.info("begin to initialize the external scorer "
-#                          "for decoding")
         _ext_scorer = Scorer(beam_alpha, beam_beta, language_model_path, vocab_list)
         lm_char_based = _ext_scorer.is_character_based()
         lm_max_order = _ext_scorer.get_max_order()
         lm_dict_size = _ext_scorer.get_dict_size()
-#         self.logger.info("language model: "
-#                          "is_character_based = %d," % lm_char_based +
-#                          " max_order = %d," % lm_max_order +
-#                          " dict_size = %d" % lm_dict_size)
-#         self.logger.info("end initializing scorer")
     else:
         _ext_scorer = None
-#         self.logger.info("no language model provided, "
-#                          "decoding by pure beam search without scorer.")

@@ -1,5 +1,6 @@
 """
 Defines a functions for training a NN.
+from
 """
 
 from data_generator import AudioGenerator
@@ -11,6 +12,10 @@ from keras.layers import (Input, Lambda)
 from keras.optimizers import SGD
 from keras.callbacks import ModelCheckpoint
 import os
+import numpy as np
+from data_generator import AudioGenerator
+from utils import int_sequence_to_text
+
 
 def ctc_lambda_func(args):
     y_pred, labels, input_length, label_length = args
@@ -78,3 +83,38 @@ def train_model(input_to_softmax,
     # save model loss
     with open('results/'+pickle_path, 'wb') as f:
         pickle.dump(hist.history, f)
+
+
+
+def get_predictions(index, partition, input_to_softmax, model_path):
+    """ Print a model's decoded predictions
+    Params:
+        index (int): The example you would like to visualize
+        partition (str): One of 'train' or 'validation'
+        input_to_softmax (Model): The acoustic model
+        model_path (str): Path to saved acoustic model's weights
+
+    return the predicted probability matrix (in a 2D matrix) and the ground truth
+    """
+    # load the train and test data
+    data_gen = AudioGenerator(spectrogram=False)
+    data_gen.load_train_data()
+    data_gen.load_validation_data()
+
+    # obtain the true transcription and the audio features
+    if partition == 'validation':
+        transcr = data_gen.valid_texts[index]
+        audio_path = data_gen.valid_audio_paths[index]
+        data_point = data_gen.normalize(data_gen.featurize(audio_path))
+    elif partition == 'train':
+        transcr = data_gen.train_texts[index]
+        audio_path = data_gen.train_audio_paths[index]
+        data_point = data_gen.normalize(data_gen.featurize(audio_path))
+    else:
+        raise Exception('Invalid partition!  Must be "train" or "validation"')
+
+    # obtain and decode the acoustic model's predictions
+    input_to_softmax.load_weights(model_path)
+    prediction = input_to_softmax.predict(np.expand_dims(data_point, axis=0))
+    output_length = [input_to_softmax.output_length(data_point.shape[0])]
+    return (predication[0], transcr, audio_path)
