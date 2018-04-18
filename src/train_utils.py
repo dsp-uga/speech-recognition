@@ -86,7 +86,7 @@ def train_model(input_to_softmax,
 
 
 
-def get_predictions(index, partition, input_to_softmax, model_path):
+def get_predictions(index, partition, input_to_softmax, model_path, spectrogram_features=True):
     """ Print a model's decoded predictions
     Params:
         index (int): The example you would like to visualize
@@ -97,7 +97,7 @@ def get_predictions(index, partition, input_to_softmax, model_path):
     return the predicted probability matrix (in a 2D matrix) and the ground truth
     """
     # load the train and test data
-    data_gen = AudioGenerator(spectrogram=False)
+    data_gen = AudioGenerator(spectrogram=spectrogram_features)
     data_gen.load_train_data()
     data_gen.load_validation_data()
 
@@ -117,4 +117,4 @@ def get_predictions(index, partition, input_to_softmax, model_path):
     input_to_softmax.load_weights(model_path)
     prediction = input_to_softmax.predict(np.expand_dims(data_point, axis=0))
     output_length = [input_to_softmax.output_length(data_point.shape[0])]
-    return (predication[0], transcr, audio_path)
+    return (prediction[0], transcr, audio_path)
