@@ -216,7 +216,7 @@ def ds2_gru_model(input_dim=161, fc_size=1024, rnn_size=512, output_dim=29, init
     model.output_length=lambda x:x
     print(model.summary())
     return model
-<<<<<<< HEAD:src/sample_models.py
+
 def TDNN_LSTM(input_dim, output_dim=29):
     """ Build a deep network for speech 
     """  
@@ -255,5 +255,4 @@ def TDNN_LSTM(input_dim, output_dim=29):
     print(model.summary())
     return model
 
-=======
->>>>>>> 1a76b196688ae75c1c3a3fe4854aef985310ca5b:src/models.py
+
