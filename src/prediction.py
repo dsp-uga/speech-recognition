@@ -21,13 +21,10 @@ def predict_test(input_to_softmax, model_path):
     data_gen.load_test_data()
 
     transcr = data_gen.test_texts
-    print(len(transcr))
     audio_path = data_gen.test_audio_paths
     input_to_softmax.load_weights(model_path)
     predictions = []
-    for i in range(300):#len(audio_path)):
-        if i%100==0:
-            print("finished processing 100 files")
+    for i in range(10):#len(audio_path)):
         data_point = data_gen.normalize(data_gen.featurize(audio_path[i]))
         
         prediction = input_to_softmax.predict(np.expand_dims(data_point, axis=0))
@@ -37,9 +34,9 @@ def predict_test(input_to_softmax, model_path):
         pred = ''.join(int_sequence_to_text(pred_ints))
         predictions.append(pred)
 
-    predictions = ' '.join(predictions)
-    transcr = transcr[:300]
-    transcr = ' '.join(transcr)
+    predictions = ''.join(predictions)
+    transcr = transcr[:10]
+    transcr = ''.join(transcr)
     with open("predictions/predictions.txt", "w") as output:
         output.write(str(predictions))
     with open("predictions/truescr.txt", "w") as output:
@@ -53,4 +50,4 @@ if __name__ == "__main__":
                         conv_border_mode='valid',
                         units=200)
                         
-    predict_test(input_to_softmax=model_2, model_path='results/models/model_cnn_large.h5')
+    predict_test(input_to_softmax=model_2, model_path='results/model_2.h5')
