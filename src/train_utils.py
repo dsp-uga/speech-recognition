@@ -118,7 +118,7 @@ def get_predictions(index, partition, input_to_softmax, model_path, spectrogram_
     output_length = [input_to_softmax.output_length(data_point.shape[0])]
     return (prediction[0], transcr, audio_path)
 
-def predict_test(input_to_softmax, model_path):
+def predict_test(input_to_softmax, model_path, audio_range=len(audio_path)):
     data_gen = AudioGenerator()
     data_gen.load_train_data()
     data_gen.load_test_data()
@@ -127,7 +127,7 @@ def predict_test(input_to_softmax, model_path):
     audio_path = data_gen.test_audio_paths
     input_to_softmax.load_weights(model_path)
     predictions = []
-    for i in range(10):#len(audio_path)):
+    for i in range(len(audio_path)):  #default len(audio_path)):
         data_point = data_gen.normalize(data_gen.featurize(audio_path[i]))
 
         prediction = input_to_softmax.predict(np.expand_dims(data_point, axis=0))
