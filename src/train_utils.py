@@ -5,7 +5,6 @@ from
 
 from data_generator import AudioGenerator
 import _pickle as pickle
-
 from keras import backend as K
 from keras.models import Model
 from keras.layers import (Input, Lambda)
@@ -118,3 +117,30 @@ def get_predictions(index, partition, input_to_softmax, model_path, spectrogram_
     prediction = input_to_softmax.predict(np.expand_dims(data_point, axis=0))
     output_length = [input_to_softmax.output_length(data_point.shape[0])]
     return (prediction[0], transcr, audio_path)
+
+def predict_test(input_to_softmax, model_path, audio_range=len(audio_path)):
+    data_gen = AudioGenerator()
+    data_gen.load_train_data()
+    data_gen.load_test_data()
+
+    transcr = data_gen.test_texts
+    audio_path = data_gen.test_audio_paths
+    input_to_softmax.load_weights(model_path)
+    predictions = []
+    for i in range(len(audio_path)):  #default len(audio_path)):
+        data_point = data_gen.normalize(data_gen.featurize(audio_path[i]))
+
+        prediction = input_to_softmax.predict(np.expand_dims(data_point, axis=0))
+        output_length = [input_to_softmax.output_length(data_point.shape[0])]
+        pred_ints = (K.eval(K.ctc_decode(
+                prediction, output_length)[0][0])+1).flatten().tolist()
+        pred = ''.join(int_sequence_to_text(pred_ints))
+        predictions.append(pred)
+
+    predictions = ''.join(predictions)
+    transcr = transcr[:10]
+    transcr = ''.join(transcr)
+    with open("predictions/predictions.txt", "w") as output:
+        output.write(str(predictions))
+    with open("predictions/truescr.txt", "w") as output:
+        output.write(str(transcr))
