@@ -76,6 +76,11 @@ def main():
     else:
     	print ("Failed to specify a working model! Please choose among 'rnn', 'brnn', 'cnn_rnn', 'tdnn', 'deep_rnn', and 'ds2'.")
     	print ("For detailed information on these models, please check models.py file.")
+        
+    # model 7: stacked lstm
+    elif args.model = 'stack_lstm':
+        model = stack_LSTM(input_dim=i_dim,
+    					 output_dim=29)
 
     train_model(input_to_softmax=model,
                 pickle_path=args.pickle_path,
