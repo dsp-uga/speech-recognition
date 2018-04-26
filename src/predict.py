@@ -23,7 +23,6 @@ import data_generator
 from models import *
 import numpy as np
 from train_utils import *
-from language_model import *
 import argparse
 
 def main():
@@ -34,6 +33,8 @@ def main():
                         conv_border_mode='valid',
                         units=200)
 
+    parser = argparse.ArgumentParser(description='Speech Recognition in Librispeech--prediction',
+            argument_default=argparse.SUPPRESS)
 
     parser.add_argument('-m','--model', dest='model', help='model to run; default model is basic rnn', default='rnn')
     parser.add_argument('-mfcc', '--mfcc', dest='mfcc', help='using mfcc features', default=False)
@@ -89,11 +90,14 @@ def main():
     # Not using language model
     if not args.lm:
         if not args.range:
+            # Please also sure here the model and the .h5 file of the model are the same.
             predict_test(input_to_softmax=model, model_path='results/model.h5')
         else:
+            # Please also sure here the model and the .h5 file of the model are the same.
             predict_test(input_to_softmax=model, model_path='results/model.h5', audio_range=args.range)
     else:
         # specify a vocab map
+        from language_model import init_ext_scorer
         vocab = ["'", ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
         lm = init_ext_scorer(args.lm, vocab)
         # make prediction
@@ -104,10 +108,11 @@ def main():
             print ("To use a language model, you have to specify a number that's less than the total \
                     number of files in your selection partition!")
         for i in range(args.range):
+            # Please also sure here the model and the .h5 file of the model are the same.
             loaded_matrix, transcr, audio_path = get_predictions(index=i,
                                     partition=parser.part,
-                                    input_to_softmax=model_4,
-                                    model_path='results/model_lstm_long_0421.h5',
+                                    input_to_softmax=model,
+                                    model_path=args.save_model_path,
                                     spectrogram_features=True)
             res = ctc_beam_search_decoder(loaded_matrix, vocab, 50, ext_scoring_func=lm)
             all_pred.append(res[0][1])
