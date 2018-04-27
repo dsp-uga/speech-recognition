@@ -1,4 +1,6 @@
 # Automatic Speech Recognition on the Digital Archive of the Southern Speech
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 
 This project is impolemented over the course of three weeks as the final project of the CSCI 8360 Data Science Practicum class offered in Spring 2018 at the University of Georgia. For course webpage, [click here](http://dsp-uga.github.io/sp18/schedule.html). 
 
@@ -18,7 +20,10 @@ For other required libraries, please check `environment.yml` file.
 
 We created virtual machine instance in google cloud with 16 CPUs. It takes approximately 2 hours to train 1 epoch of the LSTM model on full dataset.
 
-## Problem Statement
+
+## Deliverables 
+Our presentation comes in the form of a Jupyter Notebook. The notebook file is under the [src](./src) folder and it is named `demo.ipynb`. To see its html version, please navigate to the [presentation](./presentation) folder and check `demo.html` and its dependencies.
+
 
 ## Datasets
 
@@ -102,6 +107,7 @@ To use the model, pass tdnn or tdnn_large as argument to train.py file.
 ## Team Members:
 * Yuanming Shi
 * Ailing Wang
+
 See [CONTRIBUTORS.md](./CONTRIBUTORS.md) for detailed contributions.
 
 ## Reference
