@@ -73,9 +73,16 @@ def main():
     # model 6: deep speech 2 (by Baidu)
     elif args.model == 'ds2':
     	model = ds2_gru_model(input_dim=i_dim)
+        
+    # model 7: stacked lstm
+    elif args.model == 'stack_lstm':
+        model = stack_LSTM(input_dim=i_dim,
+    					 output_dim=29)
     else:
     	print ("Failed to specify a working model! Please choose among 'rnn', 'brnn', 'cnn_rnn', 'tdnn', 'deep_rnn', and 'ds2'.")
     	print ("For detailed information on these models, please check models.py file.")
+        
+    
 
     train_model(input_to_softmax=model,
                 pickle_path=args.pickle_path,
