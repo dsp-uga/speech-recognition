@@ -1,45 +1,36 @@
-# speech-recognition
-### Members:
-* Yuanming Shi
-* Ailing Wang
+# Automatic Speech Recognition on the Digital Archive of the Southern Speech
 
+This project is impolemented over the course of three weeks as the final project of the CSCI 8360 Data Science Practicum class offered in Spring 2018 at the University of Georgia. For course webpage, [click here](http://dsp-uga.github.io/sp18/schedule.html). 
 
-## Technology Used:
-* Python
+## Prerequisites:
 
-* Keras
+- [Python 3.6](https://www.python.org/downloads/release/python-360/)
+- [Anaconda](https://www.anaconda.com/)
+- [Tensorflow](http://www.tensorflow.org)
+- [Keras](http://keras.io)
+- [Jupyter Notebook](http://jupyter.org/) (for presentation purposes)
+- [ASR Evaluation](https://github.com/belambert/asr-evaluation) (for evaluting WER)
+- Swig Decoder (for decoding the outputs of the network by using a language model. For instructions, check the wiki page.)
 
-* AIND-VUI-Capstone
+For other required libraries, please check `environment.yml` file.
 
-* ASR-evaluation
+### Google VM
 
-* Baidu deepspeech
+We created virtual machine instance in google cloud with 16 CPUs. It takes approximately 2 hours to train 1 epoch of the LSTM model on full dataset.
 
 ## Problem Statement
 
-## Dataset
+## Datasets
 
 ### LibriSpeech ASR corpus
 
-We used LibriSpeech ASR corpus as our major training dataset.
+We use LibriSpeech ASR corpus as our major training dataset. LibriSpeech is a corpus of approximately 1000 hours of 16kHz read English speech, prepared by Vassil Panayotov with the assistance of Daniel Povey.It is publicly available. To access all the different datasets files, [click here.](http://openslr.org/12) 
 
-LibriSpeech is a corpus of approximately 1000 hours of 16kHz read English speech, prepared by Vassil Panayotov with the assistance of Daniel Povey. 
+You also need to convert all .flac files of LibriSpeech to .wav files. There are a lot of available scripts online for doing so. [Here is an example to do so](https://github.com/udacity/AIND-VUI-Capstone/blob/master/flac_to_wav.sh). 
 
-
-To download the dataset and convert all .flac files to .wav files:
-
-```
-wget http://www.openslr.org/resources/12/dev-clean.tar.gz
-tar -xzvf dev-clean.tar.gz
-wget http://www.openslr.org/resources/12/test-clean.tar.gz
-tar -xzvf test-clean.tar.gz
-mv flac_to_wav.sh LibriSpeech
-cd LibriSpeech
-./flac_to_wav.sh
-```
 ### DASS Corpus
 
-## Technology Installation
+## How to install and use
 
 * Keras
 Create (and activate) a new environment with Python 3.6
@@ -103,16 +94,19 @@ We created a LSTM model which has 3 LSTM layer and 8 Time distributed dense laye
 To use the model, pass tdnn or tdnn_large as argument to train.py file.
 
 
-### Google VM
 
-We created virtual machine instance in google cloud with 16 CPUs. It takes approximately 2 hours to train 1 epoch of the LSTM model on full dataset.
 
 
 ## Accuracy
+
+## Team Members:
+* Yuanming Shi
+* Ailing Wang
+See [CONTRIBUTORS.md](./CONTRIBUTORS.md) for detailed contributions.
 
 ## Reference
 
 https://github.com/udacity/AIND-VUI-Capstone
 http://www.openslr.org/12/
 
-## Lisence
+## License
