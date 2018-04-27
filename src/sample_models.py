@@ -186,3 +186,72 @@ def final_model(input_dim, filters, kernel_size, conv_stride,
         x, kernel_size, conv_border_mode, conv_stride)
     print(model.summary())
     return model
+def TDNN_LSTM(input_dim, output_dim=29):
+    """ Build a deep network for speech 
+    """  
+    # Main acoustic input
+    input_data = Input(name='the_input', shape=(None, input_dim))
+    
+    time_dense1 = TimeDistributed(Dense(150))(input_data)
+    time_dense2 = TimeDistributed(Dense(140))(time_dense1)
+    time_dense3 = TimeDistributed(Dense(130))(time_dense2)
+
+    # Add batch normalization
+    bn_td1 = BatchNormalization(name='bn_td1')(time_dense3)
+    lstm1 = LSTM(100, activation='tanh',return_sequences=True)(bn_td1)
+    
+    time_dense4 = TimeDistributed(Dense(80))(lstm1)
+    time_dense5 = TimeDistributed(Dense(70))(time_dense4)
+
+    # Add batch normalization
+    bn_td2 = BatchNormalization(name='bn_td2')(time_dense5)    
+    lstm2 = LSTM(50, activation='tanh',return_sequences=True)(bn_td2)
+    
+    time_dense6 = TimeDistributed(Dense(50))(lstm2)
+    time_dense7 = TimeDistributed(Dense(50))(time_dense6)
+
+    # Add batch normalization
+    bn_td3 = BatchNormalization(name='bn_td3')(time_dense7)    
+    lstm3 = LSTM(50, activation='tanh',return_sequences=True)(bn_td3)
+    
+    time_dense = TimeDistributed(Dense(output_dim))(lstm3)
+    # TODO: Add softmax activation layer
+    y_pred = Activation('softmax', name='softmax')(time_dense)
+    # Specify the model
+    model = Model(inputs=input_data, outputs=y_pred)
+    # TODO: Specify model.output_length
+    model.output_length = lambda x: x
+    print(model.summary())
+    return model
+
+def stack_LSTM(input_dim, output_dim=29):
+    """ Build a deep network for speech 
+    """  
+    # Main acoustic input
+    input_data = Input(name='the_input', shape=(None, input_dim))
+    
+
+    lstm1a = LSTM(250,activation="tanh",return_sequences=True)(input_data)
+    lstm1b = LSTM(250,activation="tanh",return_sequences=True)(lstm1a)
+    time_dense1 = TimeDistributed(Dense(200))(lstm1b)
+
+    # Add batch normalization
+    bn_td1 = BatchNormalization(name='bn_td1')(time_dense1)
+    lstm2a = LSTM(150, activation='tanh',return_sequences=True)(bn_td1)
+    lstm2b = LSTM(150, activation='tanh',return_sequences=True)(lstm2a)
+    
+    time_dense2 = TimeDistributed(Dense(120))(lstm2b)
+
+    # Add batch normalization
+    bn_td2 = BatchNormalization(name='bn_td2')(time_dense2)    
+    lstm3a = LSTM(80, activation='tanh',return_sequences=True)(bn_td2)
+    
+    time_dense = TimeDistributed(Dense(output_dim))(lstm3a)
+    # TODO: Add softmax activation layer
+    y_pred = Activation('softmax', name='softmax')(time_dense)
+    # Specify the model
+    model = Model(inputs=input_data, outputs=y_pred)
+    # TODO: Specify model.output_length
+    model.output_length = lambda x: x
+    print(model.summary())
+    return model

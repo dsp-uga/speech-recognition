@@ -1,7 +1,15 @@
+<<<<<<< HEAD
+
+*.flac
+*.wav
+*.txt
+*.pyc
+=======
 # data
 data/DASS/
 data/LibriSpeech/
 json_dict/*.json
+src/results
 
 # notebook playground
 preprocessing-loading.ipynb
@@ -124,3 +132,4 @@ ENV/
 
 # Jetbrains IDE files
 .idea
+>>>>>>> f07e834bd2a1e7661d8f605f1c014412baf0ec01
