@@ -13,6 +13,7 @@ This project is impolemented over the course of three weeks as the final project
 - [Jupyter Notebook](http://jupyter.org/) (for presentation purposes)
 - [ASR Evaluation](https://github.com/belambert/asr-evaluation) (for evaluting WER)
 - [Swig](http://www.swig.org/) (used for decoding the outputs of the network by using a language model. To check more detailed instructions, check the wiki page.)
+- [KenLM](https://kheafield.com/code/kenlm/) (used for decoding the outputs of the network by using a language model. To check more detailed instructions, check the wiki page.)
 
 For other required libraries, please check `environment.yml` file.
 
@@ -155,6 +156,8 @@ MIT
 https://github.com/udacity/AIND-VUI-Capstone
 
 https://github.com/baidu-research/ba-dls-deepspeech
+
+https://kheafield.com/code/kenlm/
 
 https://github.com/PaddlePaddle/DeepSpeech
 
