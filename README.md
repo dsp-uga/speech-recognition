@@ -36,13 +36,18 @@ You also need to convert all .flac files of LibriSpeech to .wav files. There are
 DASS is an audio corpus that records 64 interviews (3-4 hours each) of Southern speeches featuring dialects in eight Southern states with a mixture of ethnicities, ages, social classes, and education levels. DASS provides fruitful resources for researchers to work on. It would be interesting to see how well the model trained on general North American English corpora performs on these Southern speeches. The audio data is also publicly accessible from http://www.lap.uga.edu/, and it is also available via the Linguistic Data Consortium (https://catalog.ldc.upenn.edu/LDC2016S05). 
 
 
-## Environment Settings
+## How to install and run
 
 0. Install dependencies
 
-There are several sound-processing tools you need to install, with `libav` being the main one (because `soundfile` library in Python needs it to run):
-	  - __Linux__: `sudo apt-get install libav-tools`
-	  - __Mac__: `brew install libav`
+There are several sound-processing tools you need to install, with `libav` being the main one (because `soundfile` library in Python depends on it). Here is how to do it in Linux:
+```
+sudo apt-get install libav-tools
+```
+To do it in Mac, the easiest way is to use [Brew](https://brew.sh/):
+```
+brew install libav
+```
 
 Also, as we have mentioned before `swig` is also used as an option in integrating a language model to generate recognized texts. Detailed instructions on installing it could be found in our [Wiki](https://github.com/dsp-uga/speech-recognition/wiki) (to navigate to the wiki, you can also press `g` `w` on your keyboard) .
 
@@ -78,6 +83,7 @@ python create_test_desc_json.py .././data/DASS .././json_dict/test_corpus.json
 ```
 
 5. Train a model
+
 We offer these following models for users to train on. Here is the command to run it:
 ```
 cd src
