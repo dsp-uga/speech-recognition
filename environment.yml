@@ -1,0 +1,24 @@
+channels:
+- defaults
+dependencies:
+- future
+- numpy
+- scipy
+- ipython
+- ipyparallel
+- jupyter
+- matplotlib
+- scipy
+- scikit-image
+- scikit-learn
+- h5py
+- cython
+- spyder
+- nose
+- bokeh
+- tqdm
+- pip:
+  - click
+  - keras
+  - tensorflow
+  - soundfile
