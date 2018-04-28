@@ -156,3 +156,8 @@ https://github.com/robmsmt/KerasDeepSpeech
 
 http://www.openslr.org/12/
 
+http://lap3.libs.uga.edu/u/jstanley/vowelcharts/
+
+https://catalog.ldc.upenn.edu/LDC2012S03
+
+http://www.lap.uga.edu/
